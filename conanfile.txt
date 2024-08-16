@@ -1,0 +1,9 @@
+[requires]
+spdlog/1.14.1
+poco/1.9.3
+libpq/15.5
+librdkafka/2.4.0
+
+[generators]
+CMakeDeps
+CMakeToolchain

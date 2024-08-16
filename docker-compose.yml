@@ -1,0 +1,31 @@
+version: "3.4"
+
+networks:
+  kafka_net:
+    external: true
+  db_net:
+    external: true
+  default:
+
+
+services:
+  core: &src
+    container_name: prodmozg2-cont
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/opt/app
+    networks:
+      - db_net
+      - kafka_net
+      - default
+    restart: unless-stopped
+    ports:
+      - "8010:8010"
+
+ 
+ # $ sudo docker stop template2-core
+ # $ sudo docker rm template2-core
+ # $ sudo docker-compose up --build
+
