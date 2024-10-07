@@ -62,12 +62,68 @@ bool Database::ExecuteSQL(const std::string& sql)
       h = MotorInst3[j];
       if (h == NULL) {h = "1";}
             director(h);
+
    //         LOG_TRACE("h = h{}", h);
 
 
      } 
 
   PQclear(result);     
+
+    return true;
+}
+
+
+bool Database::ExecuteSQLD(const std::string& sqlD)
+{
+
+    if (PQstatus(m_connection.get()) != CONNECTION_OK)
+    {
+        LOG_FATAL("Connection to database failed");
+
+        return false;
+    }
+    else
+    {
+        LOG_INFO("Connection to database has been established!!!!");
+    }
+
+    auto resultD = PQexec(m_connection.get(), sqlD.c_str());
+    //  std::cout << PQresultStatus(result), '\n';
+    if (PQresultStatus(resultD) != PGRES_TUPLES_OK)
+    {
+        LOG_FATAL("PGRES_COMMAND_OK = NOT OK");
+        return false;
+    }
+
+
+
+
+
+    int nFields1D = PQntuples(resultD);
+    const int nFieldsD = nFields1D - 1;
+
+
+
+    char* hD;
+    char* MotorInst3D[]{ 0 };
+    
+    LOG_INFO("Massiv sformirovanDDDD");
+    for (int j = 0; j < nFields1D; j++)
+    {
+        MotorInst3D[j] = { PQgetvalue(resultD, j, 0) };
+        //     LOG_TRACE("date to producer MotorInst3[j]{} count nFields1{}", MotorInst3[j], nFields1);
+        hD = MotorInst3D[j];
+        if (hD == NULL) { hD = "1"; }
+        directorD(hD);
+        std::cout << "ОТПРАВ " << hD << std::endl;
+    //    std::cout << hD << std::endl; 
+        //         LOG_TRACE("h = h{}", h);
+
+
+    }
+
+    PQclear(resultD);
 
     return true;
 }

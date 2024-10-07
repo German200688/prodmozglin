@@ -19,3 +19,18 @@ static void set_config(rd_kafka_conf_t* conf, char* key, char* value) {
         exit(1);
     }
 }
+/*
+static void set_configD(rd_kafka_conf_t* confD, char* keyD, char* valueD) {
+    LOG_TRACE("55541");
+    char errstrD[512];
+    LOG_TRACE("55542");
+    rd_kafka_conf_res_t resD;
+    LOG_TRACE("55543");
+    resD = rd_kafka_conf_set(confD, keyD, valueD, errstrD, sizeof(errstrD));
+    LOG_TRACE("55544");
+    if (resD != RD_KAFKA_CONF_OK) {
+        LOG_FATAL("Unable to set config: errstr{}", errstrD);
+        exit(1);
+    }
+}
+*/

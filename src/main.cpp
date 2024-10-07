@@ -4,6 +4,7 @@
 #include <iostream>
 #include <spdlog/spdlog.h>
 #include "consumer.cpp"
+#include "consumerd.cpp"
 #include <thread>
 
 
@@ -32,6 +33,8 @@ spdlog::set_level(spdlog::level::info);
   TodoServerApp app;
 
     LOG_INFO("Welcome to kafka!");
+
+   std::thread pkD(kafkaProdD);
    std::thread pk(kafkaProd);
         LOG_INFO("Welcome to http!");
         return app.run(argc, argv);

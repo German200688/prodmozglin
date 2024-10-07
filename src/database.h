@@ -11,6 +11,7 @@ public:
     Database();
     std::shared_ptr<PGconn> GetConnection() const;
     bool ExecuteSQL(const std::string& sql);
+    bool ExecuteSQLD(const std::string& sqlD);
 
 int nFields1;
 char dbcount;
